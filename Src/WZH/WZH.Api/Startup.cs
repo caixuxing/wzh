@@ -119,7 +119,7 @@ namespace WZH.Api
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsStaging())
             {
                 app.UseDeveloperExceptionPage();
             }

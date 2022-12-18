@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyModel;
 using System.Runtime.Loader;
 
-
 namespace WZH.Common.Assemblys
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class RuntimeHelper
     {
@@ -82,8 +81,6 @@ namespace WZH.Common.Assemblys
                 return false;
             });
         }
-
-
 
         /// <summary>
         /// 获取所有的FluentValidation Validator的类

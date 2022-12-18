@@ -2,7 +2,7 @@
 
 namespace WZH.Infrastructure.Service.query
 {
-   public class BorrowQueryApp: IBorrowQueryApp
+    public class BorrowQueryApp : IBorrowQueryApp
     {
     }
 }

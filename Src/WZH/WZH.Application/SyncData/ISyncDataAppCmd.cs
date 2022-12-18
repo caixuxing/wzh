@@ -1,9 +1,8 @@
-﻿
-using WZH.Common.Response;
+﻿using WZH.Common.Response;
 
 namespace WZH.Application.SyncData
 {
-   public interface ISyncDataAppCmd
+    public interface ISyncDataAppCmd
     {
         /// <summary>
         /// 同步部门信息

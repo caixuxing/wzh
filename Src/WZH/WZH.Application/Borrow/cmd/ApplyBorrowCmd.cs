@@ -10,16 +10,13 @@
         /// </summary>
         [Required]
         public long ArchiveId { get; set; }
+
         /// <summary>
         /// 申请名称
         /// </summary>
         [Required]
-        public string? ApplyName { get; set; } 
+        public string? ApplyName { get; set; }
     }
-
- 
-
-
 
     /// <summary>
     /// 校验
@@ -27,7 +24,7 @@
     public class ApplyBorrowCmdValidator : AbstractValidator<ApplyBorrowCmd>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ApplyBorrowCmdValidator()
         {

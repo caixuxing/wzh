@@ -1,6 +1,4 @@
-﻿
-
-namespace WZH.Infrastructure.DbContext
+﻿namespace WZH.Infrastructure.DbContext
 {
     public static class EntityFrameworkCoreExtensions
     {

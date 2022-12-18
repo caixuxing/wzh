@@ -15,12 +15,12 @@ namespace WZH.Api.Filter
     public class GlobalExceptionsFilterAttribute : ExceptionFilterAttribute
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private readonly ILogger<GlobalExceptionsFilterAttribute> _loggerHelper;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="loggerHelper"></param>
         public GlobalExceptionsFilterAttribute(ILogger<GlobalExceptionsFilterAttribute> loggerHelper)
@@ -35,8 +35,7 @@ namespace WZH.Api.Filter
             json.status = 500;//500异常
             var res = new ContentResult();
 
-       
-            res.Content =  System.Text.Json.JsonSerializer.Serialize(json, new JsonSerializerOptions()
+            res.Content = System.Text.Json.JsonSerializer.Serialize(json, new JsonSerializerOptions()
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             });
@@ -44,8 +43,8 @@ namespace WZH.Api.Filter
             //采用log4net 进行错误日志记录
             _loggerHelper.LogError(json.msg + WriteLog(json.msg, context.Exception));
             base.OnException(context);
-
         }
+
         /// <summary>
         /// 自定义返回格式
         /// </summary>

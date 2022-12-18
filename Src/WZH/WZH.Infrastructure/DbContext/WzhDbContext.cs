@@ -1,13 +1,8 @@
-﻿
-
-using MediatR;
-using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Extensions.Logging;
 using WZH.Domain.Base;
 
 namespace WZH.Infrastructure.DbContext
 {
-
     /// <summary>
     /// 无纸化DbContext
     /// </summary>
@@ -26,7 +21,7 @@ namespace WZH.Infrastructure.DbContext
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="options"></param>
         /// <param name="slaveRoundRobin"></param>
@@ -37,8 +32,6 @@ namespace WZH.Infrastructure.DbContext
             _options = options;
             _mediator = mediator;
         }
-
-
 
         public DbSet<BorrowEntity> Borrow { get; private set; }//不要忘了写set，否则拿到的DbContext的Categories为null
 
@@ -54,7 +47,6 @@ namespace WZH.Infrastructure.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
             var assembly = this.GetType().Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
@@ -65,7 +57,7 @@ namespace WZH.Infrastructure.DbContext
         /// </summary>
         public void ToMaster()
         {
-             Database.GetDbConnection().ConnectionString = _dbConnection.MasterConnection;
+            Database.GetDbConnection().ConnectionString = _dbConnection.MasterConnection;
         }
 
         /// <summary>
@@ -73,7 +65,7 @@ namespace WZH.Infrastructure.DbContext
         /// </summary>
         public void ToSlave()
         {
-           Database.GetDbConnection().ConnectionString = _slaveRoundRobin.GetNext();
+            Database.GetDbConnection().ConnectionString = _slaveRoundRobin.GetNext();
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -92,9 +84,6 @@ namespace WZH.Infrastructure.DbContext
                 await _mediator.Publish(domainEvent);
             }
             return await base.SaveChangesAsync(cancellationToken);
-
         }
-
-
     }
 }

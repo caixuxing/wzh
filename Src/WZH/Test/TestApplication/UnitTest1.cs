@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using WZH.Application.SyncData;
 using Xunit;
@@ -27,7 +26,6 @@ namespace TestApplication
             var data = await _syncDataAppCmd.Dept();
             _outputHelper.WriteLine(data.ToString());
             Assert.True(!data.success, "Ö´ÐÐ³É¹¦£¡");
-
         }
     }
 }

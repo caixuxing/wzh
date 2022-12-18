@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using WZH.Application.SyncData;
 using WZH.Common.Response;
 
 namespace WZH.Api.Controllers
 {
-
     /// <summary>
     /// 同步数据
     /// </summary>
@@ -19,25 +15,25 @@ namespace WZH.Api.Controllers
     public class SyncDataController : ControllerBase
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private readonly ISyncDataAppCmd _syncDataAppCmd;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="syncDataAppCmd"></param>
         public SyncDataController(ISyncDataAppCmd syncDataAppCmd)
         {
             _syncDataAppCmd = syncDataAppCmd;
         }
-        
+
         /// <summary>
         /// 同步科室
         /// </summary>
         /// <returns></returns>
-        [HttpPost,Route("dept")]
+        [HttpPost, Route("dept")]
         public async Task<MessageModel<string>> Dept() => await _syncDataAppCmd.Dept();
-
 
         /// <summary>
         /// 测试

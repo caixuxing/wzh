@@ -1,10 +1,7 @@
-﻿
-namespace WZH.Common.Response
+﻿namespace WZH.Common.Response
 {
-   public record MessageModel<T>
+    public record MessageModel<T>
     {
-
-
         /// <summary>
         /// 状态码
         /// </summary>
@@ -13,7 +10,6 @@ namespace WZH.Common.Response
         /// 操作是否成功
         /// </summary>
         public bool success { get; set; } = false;
-
 
         /// <summary>
         /// 返回信息

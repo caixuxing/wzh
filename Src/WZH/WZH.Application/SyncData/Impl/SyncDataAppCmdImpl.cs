@@ -1,14 +1,14 @@
-﻿
-using WZH.Common.Response;
+﻿using WZH.Common.Response;
 
 namespace WZH.Application.SyncData.Impl
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class SyncDataAppCmdImpl : ISyncDataAppCmd
     {
         private readonly HttpWebClient _httpWebClient;
+
         public SyncDataAppCmdImpl(HttpWebClient httpWebClient)
         {
             _httpWebClient = httpWebClient;
@@ -24,7 +24,6 @@ namespace WZH.Application.SyncData.Impl
                 msg = "",
                 response = data
             };
-
         }
     }
 }

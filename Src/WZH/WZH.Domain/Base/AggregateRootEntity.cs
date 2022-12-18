@@ -1,28 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WZH.Common.Snowflake;
 
 namespace WZH.Domain.Base
 {
     public record AggregateRootEntity : BaseEntity, IHasCreationTime, IHasModificationTime, IHasDeletionTime
     {
-
-
         public DateTime CreateTime { get; init; } = DateTime.Now;
 
         public long CreateUserId { get; init; }
 
-
-
-
         public long? LastModifyUserId { get; private set; }
 
         public DateTime? LastModifyTime { get; private set; }
-
-
 
         public bool IsDel { get; private set; } = false;
         public DateTime? DelDateTime { get; private set; }
@@ -33,7 +21,6 @@ namespace WZH.Domain.Base
             this.IsDel = true;
             this.DelUserId = userId;
             this.DelDateTime = System.DateTime.Now;
-
         }
     }
 }

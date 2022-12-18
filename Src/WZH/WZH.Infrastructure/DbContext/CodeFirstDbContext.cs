@@ -1,6 +1,5 @@
 ﻿namespace WZH.Infrastructure.DbContext
 {
-  
     public class CodeFirstDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public CodeFirstDbContext()
@@ -14,7 +13,7 @@
             if (!optionsBuilder.IsConfigured)
             {
                 string SqlType = "MSSQL";
-          
+
                 if (SqlType.ToUpper() == "MSSQL")
                 {
                     string connectionString = "Data Source=localhost;Database=wzh_db;User ID=sa;Password=123";
@@ -25,7 +24,6 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
             var assembly = this.GetType().Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);

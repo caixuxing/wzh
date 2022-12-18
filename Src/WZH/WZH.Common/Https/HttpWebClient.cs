@@ -1,13 +1,10 @@
-﻿
-
-namespace WZH.Common.Https
+﻿namespace WZH.Common.Https
 {
     public class HttpWebClient
     {
-
-
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<HttpWebClient> _logger;
+
         public HttpWebClient(IHttpClientFactory httpClientFactory, ILogger<HttpWebClient> logger)
         {
             this._httpClientFactory = httpClientFactory;
@@ -23,12 +20,12 @@ namespace WZH.Common.Https
         /// <returns></returns>
         public async Task<T?> GetAsync<T>(string url, Dictionary<string, string> dicHeaders, int timeoutSecond = 180)
         {
-
             var client = BuildHttpClient(dicHeaders, timeoutSecond);
             var response = await client.GetAsync(url);
             var responseContent = await response.Content.ReadAsStringAsync();
             return System.Text.Json.JsonSerializer.Deserialize<T>(responseContent);
         }
+
         /// <summary>
         /// Post
         /// </summary>
@@ -38,17 +35,15 @@ namespace WZH.Common.Https
         /// <param name="timeoutSecond">响应超时值</param>
         /// <returns></returns>
         public async Task<T?> PostAsync<T>(string url, string requestBody, Dictionary<string, string> dicHeaders, int timeoutSecond = 180)
-            {
+        {
+            var client = BuildHttpClient(null, timeoutSecond);
+            var requestContent = GenerateStringContent(requestBody, dicHeaders);
+            var response = await client.PostAsync(url, requestContent);
+            _logger.LogInformation($"请求地址:{url}; 参数:{requestContent}");
+            string responseContent = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(responseContent);
+        }
 
-
-                var client = BuildHttpClient(null, timeoutSecond);
-                var requestContent = GenerateStringContent(requestBody, dicHeaders);
-                var response = await client.PostAsync(url, requestContent);
-                _logger.LogInformation($"请求地址:{url}; 参数:{requestContent}");
-                string responseContent = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(responseContent);
-
-            }
         /// <summary>
         /// Put
         /// </summary>
@@ -59,13 +54,11 @@ namespace WZH.Common.Https
         /// <returns></returns>
         public async Task<T?> PutAsync<T>(string url, string requestBody, Dictionary<string, string> dicHeaders, int timeoutSecond = 180)
         {
-           
-                var client = BuildHttpClient(null, timeoutSecond);
-                var requestContent = GenerateStringContent(requestBody, dicHeaders);
-                var response = await client.PutAsync(url, requestContent);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(responseContent);
-
+            var client = BuildHttpClient(null, timeoutSecond);
+            var requestContent = GenerateStringContent(requestBody, dicHeaders);
+            var response = await client.PutAsync(url, requestContent);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(responseContent);
         }
 
         /// <summary>
@@ -78,14 +71,13 @@ namespace WZH.Common.Https
         /// <returns></returns>
         public async Task<T?> PatchAsync<T>(string url, string requestBody, Dictionary<string, string> dicHeaders, int timeoutSecond = 180)
         {
-
             var client = BuildHttpClient(null, timeoutSecond);
             var requestContent = GenerateStringContent(requestBody, dicHeaders);
             var response = await client.PatchAsync(url, requestContent);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(responseContent);
-
         }
+
         /// <summary>
         /// Delete
         /// </summary>
@@ -95,13 +87,12 @@ namespace WZH.Common.Https
         /// <returns></returns>
         public async Task<T?> DeleteAsync<T>(string url, Dictionary<string, string> dicHeaders, int timeoutSecond = 180)
         {
-            
-                var client = BuildHttpClient(dicHeaders, timeoutSecond);
-                var response = await client.DeleteAsync(url);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(responseContent);
-        
+            var client = BuildHttpClient(dicHeaders, timeoutSecond);
+            var response = await client.DeleteAsync(url);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(responseContent);
         }
+
         /// <summary>
         /// common request
         /// </summary>
@@ -113,15 +104,13 @@ namespace WZH.Common.Https
         /// <returns></returns>
         public async Task<T?> ExecuteAsync<T>(string url, HttpMethod method, string requestBody, Dictionary<string, string> dicHeaders, int timeoutSecond = 180)
         {
-           
-                var client = BuildHttpClient(null, timeoutSecond);
-                var request = GenerateHttpRequestMessage(url, requestBody, method, dicHeaders);
-                var response = await client.SendAsync(request);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(responseContent);
-         
-
+            var client = BuildHttpClient(null, timeoutSecond);
+            var request = GenerateHttpRequestMessage(url, requestBody, method, dicHeaders);
+            var response = await client.SendAsync(request);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(responseContent);
         }
+
         /// <summary>
         /// Build HttpClient
         /// </summary>
@@ -173,6 +162,7 @@ namespace WZH.Common.Https
             }
             return request;
         }
+
         /// <summary>
         ///  Generate StringContent
         /// </summary>
@@ -191,6 +181,5 @@ namespace WZH.Common.Https
             }
             return content;
         }
-
     }
 }

@@ -2,10 +2,7 @@
 {
     public class IdWorker
     {
-
-
-
-        static readonly IdWorker instance = new IdWorker(1, 1);
+        private static readonly IdWorker instance = new IdWorker(1, 1);
 
         public static IdWorker Instance
         {
@@ -15,25 +12,33 @@
             }
         }
 
-
         //基准时间
         public const long Twepoch = 1288834974657L;
+
         //机器标识位数
-        const int WorkerIdBits = 5;
+        private const int WorkerIdBits = 5;
+
         //数据标志位数
-        const int DatacenterIdBits = 5;
+        private const int DatacenterIdBits = 5;
+
         //序列号识位数
-        const int SequenceBits = 12;
+        private const int SequenceBits = 12;
+
         //机器ID最大值
-        const long MaxWorkerId = -1L ^ (-1L << WorkerIdBits);
+        private const long MaxWorkerId = -1L ^ (-1L << WorkerIdBits);
+
         //数据标志ID最大值
-        const long MaxDatacenterId = -1L ^ (-1L << DatacenterIdBits);
+        private const long MaxDatacenterId = -1L ^ (-1L << DatacenterIdBits);
+
         //序列号ID最大值
         private const long SequenceMask = -1L ^ (-1L << SequenceBits);
+
         //机器ID偏左移12位
         private const int WorkerIdShift = SequenceBits;
+
         //数据ID偏左移17位
         private const int DatacenterIdShift = SequenceBits + WorkerIdBits;
+
         //时间毫秒左移22位
         public const int TimestampLeftShift = SequenceBits + WorkerIdBits + DatacenterIdBits;
 
@@ -42,6 +47,7 @@
 
         public long WorkerId { get; protected set; }
         public long DatacenterId { get; protected set; }
+
         public long Sequence
         {
             get { return _sequence; }
@@ -67,7 +73,8 @@
             _sequence = sequence;
         }
 
-        readonly object _lock = new Object();
+        private readonly object _lock = new Object();
+
         public virtual long NextId()
         {
             lock (_lock)

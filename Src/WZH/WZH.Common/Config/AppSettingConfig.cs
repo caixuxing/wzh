@@ -1,6 +1,6 @@
 ﻿namespace WZH.Common.Config
 {
-   public class AppSettingConfig
+    public class AppSettingConfig
     {
     }
 }

@@ -16,14 +16,13 @@ namespace WZH.Api.Filter
         /// <param name="context"></param>
         public void OnActionExecuted(ActionExecutedContext context)
         {
-
         }
 
         /// <summary>
         /// Action之前过滤验证Cmd
         /// </summary>
         /// <param name="context"></param>
-        /// 
+        ///
         public void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)

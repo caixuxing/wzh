@@ -3,7 +3,7 @@
     /// <summary>
     /// 模块注入
     /// </summary>
-   public interface IModuleInitializer
+    public interface IModuleInitializer
     {
         /// <summary>
         /// 初始化注入

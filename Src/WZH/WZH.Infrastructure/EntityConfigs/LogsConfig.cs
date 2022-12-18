@@ -1,9 +1,7 @@
-﻿
-using WZH.Domain.Logs.entity;
+﻿using WZH.Domain.Logs.entity;
 
 namespace WZH.Infrastructure.EntityConfigs
 {
-
     public class LogsConfig : IEntityTypeConfiguration<LogEntity>
     {
         public void Configure(EntityTypeBuilder<LogEntity> builder)
@@ -13,6 +11,5 @@ namespace WZH.Infrastructure.EntityConfigs
             builder.Property(t => t.Id).ValueGeneratedNever().HasComment("主键ID");
             builder.HasQueryFilter(a => !a.IsDel);
         }
-
     }
 }

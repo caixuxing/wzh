@@ -1,27 +1,24 @@
-﻿
-using WZH.Common.Response;
+﻿using WZH.Common.Response;
 
 namespace WZH.Application.Borrow.Impl
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
-   public class BorrowCmdApp: IBorrowCmdApp
+    public class BorrowCmdApp : IBorrowCmdApp
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private readonly IBorrowRepo _borrowRepo;
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="borrowRepo"></param>
         public BorrowCmdApp(IBorrowRepo borrowRepo)
         {
             this._borrowRepo = borrowRepo;
-         
         }
 
         public virtual async Task<MessageModel<BorrowEntity>> ApplyBorrow(ApplyBorrowCmd cmd)
@@ -33,8 +30,6 @@ namespace WZH.Application.Borrow.Impl
                     yield return BorrowEntity.Create(cmd.ArchiveId, cmd.ApplyName!);
                 }
             }
-
-           
 
             await _borrowRepo.Add(get());
             return ApiResponse<BorrowEntity>.Success("操作成功！", get().FirstOrDefault()!);
@@ -48,16 +43,16 @@ namespace WZH.Application.Borrow.Impl
         /// <returns></returns>
         public async Task<MessageModel<string>> Approval(int status, long Id)
         {
-
             AssertUtils.IsObjNull(Enum.GetName(typeof(BorrowStatusType), status), "非法状态，请核实状态码");
             var result = await _borrowRepo.FindById(Id);
             AssertUtils.IsObjNull(result, "资源不存，审批失败");
             result.ChangeApproval(Enum.Parse<BorrowStatusType>(status.ToString()));
-            await _borrowRepo.PathModify(result,"Status");
+            await _borrowRepo.PathModify(result, "Status");
             return ApiResponse<string>.Success();
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="cmd"></param>
         /// <param name="Id"></param>
@@ -70,8 +65,9 @@ namespace WZH.Application.Borrow.Impl
             await _borrowRepo.Modify(data);
             return ApiResponse<string>.Success();
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="applyname"></param>
         /// <param name="Id"></param>

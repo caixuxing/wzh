@@ -1,6 +1,4 @@
-﻿
-
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace WZH.Common.Enums.Borrow
 {
@@ -11,6 +9,7 @@ namespace WZH.Common.Enums.Borrow
         /// </summary>
         [Description("通过")]
         PASSED,
+
         /// <summary>
         /// 驳回
         /// </summary>
@@ -28,8 +27,5 @@ namespace WZH.Common.Enums.Borrow
         /// </summary>
         [Description("撤回、废弃")]
         REVOCATION
-
     }
-
-
 }

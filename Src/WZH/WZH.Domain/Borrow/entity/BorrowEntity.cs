@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WZH.Common.Enums.Borrow;
 using WZH.Common.Snowflake;
 using WZH.Domain.Base;
@@ -14,7 +11,7 @@ namespace WZH.Domain.Borrow.entity
     /// <summary>
     /// 借阅聚合
     /// </summary>
-   public sealed  record BorrowEntity: AggregateRootEntity, IValidatableObject
+    public sealed record BorrowEntity : AggregateRootEntity, IValidatableObject
     {
         private BorrowEntity() { }
         /// <summary>
@@ -33,7 +30,7 @@ namespace WZH.Domain.Borrow.entity
         /// <summary>
         /// 借阅部门Code
         /// </summary>
-       
+
         public string BorrowDeptCode { get; private set; }
         /// <summary>
         /// 借阅类型
@@ -52,22 +49,19 @@ namespace WZH.Domain.Borrow.entity
         /// </summary>
         public BorrowStatusType Status { get; private set; }
 
-
-
         /// <summary>
         /// 创建申请借阅
         /// </summary>
         /// <returns></returns>
         public static BorrowEntity Create(long archiveid, string applyborrowname)
         {
-
             BorrowEntity entity = new()
             {
                 ArchiveId = archiveid,
                 BorrowDate = DateTime.Now,
                 BorrowDeptCode = "JY" + IdWorker.Instance.NextId(),
-                BorrowTpye="type",
-                BorrowUserCode="code",
+                BorrowTpye = "type",
+                BorrowUserCode = "code",
                 ApplyBorrowName = applyborrowname,
                 ReturnDate = DateTime.Now,
                 Status = BorrowStatusType.END,
@@ -94,7 +88,8 @@ namespace WZH.Domain.Borrow.entity
         {
             BorrowEntity entity = new()
             {
-               Id= id,Status= borrowStatus
+                Id = id,
+                Status = borrowStatus
             };
             return entity;
         }

@@ -1,28 +1,23 @@
-﻿
-using WZH.Common.Response;
+﻿using WZH.Common.Response;
 
 namespace WZH.Application.Borrow
 {
-
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface IBorrowCmdApp
     {
-
         /// <summary>
         /// 申请借阅
         /// </summary>
         /// <returns></returns>
         Task<MessageModel<BorrowEntity>> ApplyBorrow(ApplyBorrowCmd cmd);
 
-
         /// <summary>
         /// 修改申请借阅
         /// </summary>
         /// <returns></returns>
-        Task<MessageModel<string>> ModifyApplyBorrow(ApplyBorrowCmd cmd,long Id);
-
+        Task<MessageModel<string>> ModifyApplyBorrow(ApplyBorrowCmd cmd, long Id);
 
         /// <summary>
         /// 修改申请借阅名称

@@ -1,8 +1,6 @@
-﻿
-
-namespace WZH.Common.Assert
+﻿namespace WZH.Common.Assert
 {
-  public static  class AssertUtils
+    public static class AssertUtils
     {
         public static void IsObjNull(object? value, string msg)
         {

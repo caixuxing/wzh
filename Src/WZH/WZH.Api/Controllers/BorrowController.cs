@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Profiling;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using WZH.Application.Borrow;
 using WZH.Application.Borrow.cmd;
-using WZH.Common.Response;
 
 namespace WZH.Api.Controllers
 {
@@ -21,13 +16,14 @@ namespace WZH.Api.Controllers
     public class BorrowController : ControllerBase
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private readonly IBorrowCmdApp _borrowCmdApp;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="borrowCmdApp"></param>
         public BorrowController(IBorrowCmdApp borrowCmdApp, IHttpContextAccessor httpContextAccessor)
@@ -35,6 +31,7 @@ namespace WZH.Api.Controllers
             _borrowCmdApp = borrowCmdApp;
             _httpContextAccessor = httpContextAccessor;
         }
+
         /// <summary>
         /// 创建申请借阅
         /// </summary>
@@ -57,8 +54,6 @@ namespace WZH.Api.Controllers
         [HttpPut, Route("modify/{id}")]
         public async Task<ActionResult> PutBorrow([FromBody] ApplyBorrowCmd cmd, long id) => Ok(await _borrowCmdApp.ModifyApplyBorrow(cmd, id));
 
-
-
         /// <summary>
         /// 获取借阅申请信息
         /// </summary>
@@ -75,8 +70,5 @@ namespace WZH.Api.Controllers
         /// <returns></returns>
         [HttpPatch, Route("approval/{id}")]
         public async Task<ActionResult> PatchApproval([FromForm] int status, [FromRoute] long id) => Ok(await _borrowCmdApp.Approval(status, id));
-
-
-
     }
 }

@@ -1,5 +1,4 @@
-﻿
-namespace WZH.Common.Response
+﻿namespace WZH.Common.Response
 {
     /// <summary>
     /// ApiResponse
@@ -7,16 +6,16 @@ namespace WZH.Common.Response
     /// <typeparam name="T"></typeparam>
     public static class ApiResponse<T>
     {
-        
         /// <summary>
         /// 返回成功
         /// </summary>
         /// <param name="msg">消息</param>
         /// <returns></returns>
-        public static MessageModel<T> Success(string msg="操作成功！")
+        public static MessageModel<T> Success(string msg = "操作成功！")
         {
             return Message(true, msg, default);
         }
+
         /// <summary>
         /// 返回成功
         /// </summary>
@@ -27,6 +26,7 @@ namespace WZH.Common.Response
         {
             return Message(true, msg, response);
         }
+
         /// <summary>
         /// 返回失败
         /// </summary>
@@ -36,6 +36,7 @@ namespace WZH.Common.Response
         {
             return Message(false, msg, default);
         }
+
         /// <summary>
         /// 返回失败
         /// </summary>
@@ -46,6 +47,7 @@ namespace WZH.Common.Response
         {
             return Message(false, msg, response);
         }
+
         /// <summary>
         /// 返回消息
         /// </summary>

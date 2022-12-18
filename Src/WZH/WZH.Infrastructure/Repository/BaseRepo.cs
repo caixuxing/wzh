@@ -1,6 +1,4 @@
-﻿
-
-namespace WZH.Infrastructure.Repository
+﻿namespace WZH.Infrastructure.Repository
 {
     /// <summary>
     /// 基类仓储
@@ -9,10 +7,12 @@ namespace WZH.Infrastructure.Repository
     public class BaseRepo<T> where T : class
     {
         protected readonly WzhDbContext _dbContext;
+
         public BaseRepo(WzhDbContext dbContext)
         {
             _dbContext = dbContext;
         }
+
         /// <summary>
         /// 根据聚合ID获取聚合实体
         /// </summary>
@@ -24,13 +24,13 @@ namespace WZH.Infrastructure.Repository
             return data;
         }
 
-
         public virtual async Task<bool> Add(T entity)
         {
             _dbContext.Add(entity);
-          
+
             return await _dbContext.SaveChangesAsync() > 0;
         }
+
         public virtual async Task<bool> Add(IEnumerable<T> entity)
         {
             await _dbContext.BulkInsertAsync(entity);
@@ -52,7 +52,7 @@ namespace WZH.Infrastructure.Repository
 
         public virtual async Task<bool> Modify(IEnumerable<T> entity)
         {
-             _dbContext.UpdateRange(entity);
+            _dbContext.UpdateRange(entity);
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
@@ -71,13 +71,11 @@ namespace WZH.Infrastructure.Repository
             _dbContext.Remove(entity);
             return await _dbContext.SaveChangesAsync() > 0;
         }
+
         public virtual async Task<bool> Delete(IEnumerable<T> entity)
         {
             _dbContext.RemoveRange(entity);
             return await _dbContext.SaveChangesAsync() > 0;
-        } 
-
-
-  
+        }
     }
 }

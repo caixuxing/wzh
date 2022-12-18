@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WZH.Api</name>
+    </assembly>
+    <members>
+        <member name="T:WZH.Api.Controllers.BorrowController">
+            <summary>
+            借阅管理
+            </summary>
+        </member>
+        <member name="F:WZH.Api.Controllers.BorrowController._borrowCmdApp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WZH.Api.Controllers.BorrowController.#ctor(WZH.Application.Borrow.IBorrowCmdApp,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            
+            </summary>
+            <param name="borrowCmdApp"></param>
+        </member>
+        <member name="M:WZH.Api.Controllers.BorrowController.AddBorrow(WZH.Application.Borrow.cmd.ApplyBorrowCmd)">
+            <summary>
+            创建申请借阅
+            </summary>
+            <param name="cmd">申请借阅Cmd</param>
+            <returns></returns>
+        </member>
+        <member name="M:WZH.Api.Controllers.BorrowController.PutBorrow(WZH.Application.Borrow.cmd.ApplyBorrowCmd,System.Int64)">
+            <summary>
+            修改申请借阅
+            </summary>
+            <param name="cmd">申请借阅Cmd</param>
+            <param name="id">主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WZH.Api.Controllers.BorrowController.FindBorrowById(System.Int64)">
+            <summary>
+            获取借阅申请信息
+            </summary>
+            <param name="id">主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WZH.Api.Controllers.BorrowController.PatchApproval(System.Int32,System.Int64)">
+            <summary>
+            审批借阅
+            </summary>
+            <param name="status">审批状态码</param>
+            <param name="id">主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:WZH.Api.Controllers.SyncDataController">
+            <summary>
+            同步数据
+            </summary>
+        </member>
+        <member name="F:WZH.Api.Controllers.SyncDataController._syncDataAppCmd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WZH.Api.Controllers.SyncDataController.#ctor(WZH.Application.SyncData.ISyncDataAppCmd)">
+            <summary>
+            
+            </summary>
+            <param name="syncDataAppCmd"></param>
+        </member>
+        <member name="M:WZH.Api.Controllers.SyncDataController.Dept">
+            <summary>
+            同步科室
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WZH.Api.Controllers.SyncDataController.FindById(System.Int64)">
+            <summary>
+            测试
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WZH.Api.Filter.GlobalExceptionsFilterAttribute">
+            <summary>
+            全局异常错误日志
+            </summary>
+        </member>
+        <member name="F:WZH.Api.Filter.GlobalExceptionsFilterAttribute._loggerHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WZH.Api.Filter.GlobalExceptionsFilterAttribute.#ctor(Microsoft.Extensions.Logging.ILogger{WZH.Api.Filter.GlobalExceptionsFilterAttribute})">
+            <summary>
+            
+            </summary>
+            <param name="loggerHelper"></param>
+        </member>
+        <member name="M:WZH.Api.Filter.GlobalExceptionsFilterAttribute.WriteLog(System.String,System.Exception)">
+            <summary>
+            自定义返回格式
+            </summary>
+            <param name="throwMsg"></param>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WZH.Api.Filter.ValidateModelActionFilter">
+            <summary>
+             Action过滤器
+            </summary>
+        </member>
+        <member name="M:WZH.Api.Filter.ValidateModelActionFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            Action执行完后
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:WZH.Api.Filter.ValidateModelActionFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Action之前过滤验证Cmd
+            </summary>
+            <param name="context"></param>
+            
+        </member>
+        <member name="T:WZH.Api.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WZH.Api.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:WZH.Api.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WZH.Api.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WZH.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:WZH.Api.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WZH.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:WZH.Api.Startup.AssemblyList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WZH.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

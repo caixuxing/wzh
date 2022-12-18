@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Archive\" />
+    <Folder Include="BasicInfo\" />
+    <Folder Include="Borrow\acl\" />
+    <Folder Include="Borrow\factory\" />
+    <Folder Include="Logs\enums\" />
+    <Folder Include="MedicalRecord\Entity\" />
+    <Folder Include="新文件夹\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WZH.Common\WZH.Common.csproj" />
+  </ItemGroup>
+
+</Project>

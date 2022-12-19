@@ -1,3 +1,3 @@
-===================数据库迁移=========================
-Add-Migration -Context CodeFirstDbContext Version 
+===================数据库迁移=========================  
+Add-Migration -Context CodeFirstDbContext Version   
 Update-Database -Context CodeFirstDbContext  Version

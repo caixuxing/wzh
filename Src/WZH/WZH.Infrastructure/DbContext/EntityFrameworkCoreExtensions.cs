@@ -2,26 +2,22 @@
 {
     public static class EntityFrameworkCoreExtensions
     {
-        private static DbCommand CreateCommand(DatabaseFacade facade, string sql, out DbConnection connection, params object[] parameters)
-        {
-            var conn = facade.GetDbConnection();
-            connection = conn;
-            conn.Open();
-            var cmd = conn.CreateCommand();
-            cmd.CommandText = sql;
-            cmd.Parameters.AddRange(parameters);
-            return cmd;
-        }
-
+       
         public static DataTable SqlQuery(this DatabaseFacade facade, string sql, params object[] parameters)
         {
-            var command = CreateCommand(facade, sql, out DbConnection conn, parameters);
-            var reader = command.ExecuteReader();
-            var dt = new DataTable();
-            dt.Load(reader);
-            reader.Close();
-            conn.Close();
-            return dt;
+            using (var conn = facade.GetDbConnection())
+            {
+                if (conn.State != ConnectionState.Open) conn.Open();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = sql;
+                cmd.Parameters.AddRange(parameters);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var dt = new DataTable();
+                    dt.Load(reader);
+                    return dt;
+                }
+            }
         }
 
         public static List<T> SqlQuery<T>(this DatabaseFacade facade, string sql, params object[] parameters) where T : class, new()

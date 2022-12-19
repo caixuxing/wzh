@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using WZH.Application.Borrow.dto;
 using WZH.Domain.Base;
 
 namespace WZH.Infrastructure.DbContext
@@ -35,6 +36,7 @@ namespace WZH.Infrastructure.DbContext
 
         public DbSet<BorrowEntity> Borrow { get; private set; }//不要忘了写set，否则拿到的DbContext的Categories为null
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -54,17 +56,20 @@ namespace WZH.Infrastructure.DbContext
         /// <summary>
         /// 主库
         /// </summary>
-        public void ToMaster()
+        public Microsoft.EntityFrameworkCore.DbContext ToMaster()
         {
-            Database.GetDbConnection().ConnectionString = _dbConnection.MasterConnection;
+            //把链接字符串设为读写（主库）
+            this.Database.GetDbConnection().ConnectionString = this._dbConnection.MasterConnection;
+            return this;
         }
 
         /// <summary>
         /// 从库
         /// </summary>
-        public void ToSlave()
+        public Microsoft.EntityFrameworkCore.DbContext ToSlave()
         {
             Database.GetDbConnection().ConnectionString = _slaveRoundRobin.GetNext();
+            return this;
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

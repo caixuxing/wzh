@@ -26,7 +26,33 @@ namespace WZH.Infrastructure.Service.query
         /// <returns></returns>
         public async Task<MessageModel<PageModel<BorrowPageListDto>>> GetPageListQry(BorrowPageListQry qry, int pageIndex, int pagesize)
         {
-            var data = _dbContext.Borrow.AsNoTracking().AsQueryable();
+
+           //如果查询很复查建议直接采用纯SQL查询
+          List<BorrowPageListDto> TestData= _dbContext.ToSlave().Database.SqlQuery<BorrowPageListDto>(@"SELECT cast(Id as varchar(50))as Id,ApplyBorrowName as BorrowName,Status as StatusCode,BorrowDate FROM Borrow
+       where IsDel=0
+       ORDER BY [CreateTime]
+         OFFSET 10 ROWS FETCH NEXT 50 ROWS ONLY ");
+            IEnumerable<BorrowPageListDto> getAlls()
+            {
+                foreach (var item in TestData)
+                {
+                    yield return new BorrowPageListDto()
+                    {
+                        Id = item.Id.ToString(),
+                        BorrowName = item.BorrowName,
+                        StatusCode = item.StatusCode,
+                        StatusName = item.StatusCode.FetchDescription(),
+                        BorrowDate = item.BorrowDate
+                    };
+                }
+            }
+            var datassd = getAlls();
+
+
+
+
+            // EF Core查询
+            var data = _dbContext.ToMaster().Set<BorrowEntity>().AsNoTracking().AsQueryable();
             if (!string.IsNullOrWhiteSpace(qry.BorrowName))
             {
                 data = data.Where(x => x.ApplyBorrowName.StartsWith(qry.BorrowName));
@@ -47,7 +73,7 @@ namespace WZH.Infrastructure.Service.query
                     yield return new BorrowPageListDto()
                     {
                         Id = item.Id.ToString(),
-                        BorrowName = null,
+                        BorrowName = item.ApplyBorrowName,
                         StatusCode = item.Status,
                         StatusName = item.Status.FetchDescription(),
                         BorrowDate=item.BorrowDate

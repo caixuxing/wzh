@@ -12,7 +12,7 @@ namespace WZH.Application.Borrow.dto
         /// <summary>
         /// 主键ID
         /// </summary>
-        public string? Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 借阅申请名称

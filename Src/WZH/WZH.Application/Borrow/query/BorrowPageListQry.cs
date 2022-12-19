@@ -30,7 +30,10 @@ namespace WZH.Application.Borrow.query
         /// </summary>
         public BorrowPageListQryValidator()
         {
-            RuleFor(e => e.StatusCode).Must(EncryptionPassword).WithMessage("{PropertyName}非法状态，请核实状态码");
+            RuleFor(e => e.StatusCode)
+                .GreaterThanOrEqualTo(1)
+                .LessThanOrEqualTo(4)
+                .Must(EncryptionPassword).WithMessage("{PropertyName}非法状态，请核实状态码");
         }
 
         private bool EncryptionPassword(int code)

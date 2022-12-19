@@ -2,5 +2,6 @@
 {
     public class AppSettingConfig
     {
+        public DbConfig dbConfig { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using WZH.Domain.Logs.entity;
+﻿using WZH.Domain.SystemManage.entity;
 
 namespace WZH.Infrastructure.EntityConfigs
 {

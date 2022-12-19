@@ -39,8 +39,7 @@ namespace WZH.Infrastructure.DbContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = "Data Source=localhost;Database=wzh_db;User ID=sa;Password=123";
-                optionsBuilder.UseSqlServer(connectionString, b => b.MaxBatchSize(1000));
+                optionsBuilder.UseSqlServer(_dbConnection.MasterConnection, b => b.MaxBatchSize(1000));
             }
             optionsBuilder.UseLoggerFactory(loggerFactory);
         }

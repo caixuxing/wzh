@@ -16,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using WZH.Api.Filter;
 using WZH.Common.Assemblys;
+using WZH.Common.Config;
 using WZH.Common.Extensions;
 using WZH.Infrastructure.DbContext;
 
@@ -81,9 +82,17 @@ namespace WZH.Api
                 c.IncludeXmlComments(xmlModelPath);
             });
 
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("DbConfig");
+           // var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("DbConfig");
 
-            services.Configure<DbConnectionOption>(configuration).AddScoped<SlaveRoundRobin>()
+            //如果你把配置文件 是 根据环境变量来分开了，可以这样写
+            var configuration = new ConfigurationBuilder()
+                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                 .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: false)
+                .Build();
+            services.AddOptions();
+         //   services.Configure<AppSettingConfig>(configuration.GetSection("DbConfig"));
+
+            services.Configure<DbConnectionOption>(configuration.GetSection("DbConfig")).AddScoped<SlaveRoundRobin>()
                     .AddDbContext<WzhDbContext>();
 
             // 服务注册
@@ -100,6 +109,11 @@ namespace WZH.Api
                 // 设定访问分析结果URL的路由基地址
                 options.RouteBasePath = "/profiler";
             }).AddEntityFramework(); //显示SQL语句及耗时
+
+
+        
+
+
         }
 
         /// <summary>

@@ -1,11 +1,13 @@
 ﻿
 
+using WZH.Domain.Borrow.enums;
+
 namespace WZH.Application.Borrow.dto
 {
     /// <summary>
     /// 借阅分页列表集合DTO
     /// </summary>
-    public class BorrowPageListDTO
+    public record BorrowPageListDTO
     {
         /// <summary>
         /// 主键ID
@@ -15,15 +17,20 @@ namespace WZH.Application.Borrow.dto
         /// <summary>
         /// 借阅申请名称
         /// </summary>
-        public string BorrowName { get; set; }
+        public string BorrowName { get; set; } = string.Empty;
 
         /// <summary>
         /// 状态名
         /// </summary>
-        public string StatusName { get; set; }
+        public string StatusName { get; set; } = string.Empty;
         /// <summary>
         /// 状态Code
         /// </summary>
-        public int StatusCode { get; set; }
+        public BorrowStatusType StatusCode { get; set; }
+
+        /// <summary>
+        /// BorrowDate
+        /// </summary>
+        public DateTime? BorrowDate { get; set; }
     }
 }

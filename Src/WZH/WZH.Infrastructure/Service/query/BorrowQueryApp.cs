@@ -33,10 +33,9 @@ namespace WZH.Infrastructure.Service.query
             }
             if (qry.StatusCode > 0)
             {
-                AssertUtils.IsObjNull(Enum.GetName(typeof(BorrowStatusType), qry.StatusCode), "非法状态，请核实状态码");
                 data = data.Where(x => x.Status == Enum.Parse<BorrowStatusType>(qry.StatusCode.ToString()));
             }
-            var result = await data.Select(x => new { x.Id, x.ApplyBorrowName, x.Status }).OrderByDescending(x=>x.Id)
+            var result = await data.Select(x => new { x.Id, x.ApplyBorrowName, x.Status,x.BorrowDate }).OrderByDescending(x=>x.Id)
                  .Skip(pageIndex).Take(pagesize)
                  .ToListAsync();
             var count = await data.CountAsync();
@@ -47,9 +46,10 @@ namespace WZH.Infrastructure.Service.query
                     yield return new BorrowPageListDTO()
                     {
                         Id = item.Id.ToString(),
-                        BorrowName = item.ApplyBorrowName,
-                        StatusCode = ((int)item.Status),
-                        StatusName = item.Status.FetchDescription()
+                        BorrowName = null,
+                        StatusCode = item.Status,
+                        StatusName = item.Status.FetchDescription(),
+                        BorrowDate=item.BorrowDate
                     };
                 }
             }

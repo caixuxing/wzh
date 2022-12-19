@@ -19,6 +19,10 @@ using WZH.Common.Assemblys;
 using WZH.Common.Config;
 using WZH.Common.Extensions;
 using WZH.Infrastructure.DbContext;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using WZH.Common.utils;
 
 namespace WZH.Api
 {
@@ -56,6 +60,23 @@ namespace WZH.Api
                 x.Filters.Add(typeof(GlobalExceptionsFilterAttribute));
                 //Action 参数提示FluentValidation过滤
                 x.Filters.Add(typeof(ValidateModelActionFilter));
+            }).AddNewtonsoftJson(options =>
+            {
+                //忽略循环引用
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                //不使用驼峰样式的key
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                //设置时间格式
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                //忽略Model中为null的属性
+                //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                //处理null值
+                options.SerializerSettings.ContractResolver = new NullOutputHandResolver();
+                //设置本地时间而非UTC时间
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+                //添加Enum转string
+                options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssembly(Assembly.Load("WZH.Application"));

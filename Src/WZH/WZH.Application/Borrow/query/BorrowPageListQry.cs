@@ -1,5 +1,7 @@
 ﻿
 
+using WZH.Domain.Borrow.enums;
+
 namespace WZH.Application.Borrow.query
 {
     /// <summary>
@@ -16,5 +18,28 @@ namespace WZH.Application.Borrow.query
         /// 借阅状态Code
         /// </summary>
         public int StatusCode { get; set; }
+    }
+
+    /// <summary>
+    /// 校验
+    /// </summary>
+    public class BorrowPageListQryValidator : AbstractValidator<BorrowPageListQry>
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public BorrowPageListQryValidator()
+        {
+            RuleFor(e => e.StatusCode).Must(EncryptionPassword).WithMessage("{PropertyName}非法状态，请核实状态码");
+        }
+
+        private bool EncryptionPassword(int code)
+        {
+            if (string.IsNullOrWhiteSpace(Enum.GetName(typeof(BorrowStatusType), code)))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

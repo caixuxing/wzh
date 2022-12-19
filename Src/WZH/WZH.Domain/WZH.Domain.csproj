@@ -11,9 +11,7 @@
     <Folder Include="BasicInfo\" />
     <Folder Include="Borrow\acl\" />
     <Folder Include="Borrow\factory\" />
-    <Folder Include="Logs\enums\" />
     <Folder Include="MedicalRecord\Entity\" />
-    <Folder Include="新文件夹\" />
   </ItemGroup>
 
   <ItemGroup>

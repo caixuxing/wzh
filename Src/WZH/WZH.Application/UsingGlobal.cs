@@ -7,7 +7,6 @@ global using System.Linq;
 global using System.Threading.Tasks;
 global using WZH.Application.Borrow.cmd;
 global using WZH.Common.Assert;
-global using WZH.Common.Enums.Borrow;
 global using WZH.Common.Extensions;
 global using WZH.Common.Https;
 global using WZH.Domain.Borrow.entity;

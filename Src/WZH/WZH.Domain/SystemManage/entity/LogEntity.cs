@@ -1,6 +1,11 @@
-﻿using WZH.Domain.Base;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WZH.Domain.Base;
 
-namespace WZH.Domain.Logs.entity
+namespace WZH.Domain.SystemManage.entity
 {
     /// <summary>
     /// 系统日志

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WZH.Common.Enums.Borrow;
 using WZH.Common.Snowflake;
 using WZH.Domain.Base;
+using WZH.Domain.Borrow.enums;
 using WZH.Domain.Borrow.events;
 
 namespace WZH.Domain.Borrow.entity

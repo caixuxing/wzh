@@ -1,4 +1,5 @@
 ﻿using WZH.Common.Response;
+using WZH.Domain.Borrow.enums;
 
 namespace WZH.Application.Borrow.Impl
 {

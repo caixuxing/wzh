@@ -7,22 +7,22 @@ namespace WZH.Application.Borrow.dto
     /// <summary>
     /// 借阅分页列表集合DTO
     /// </summary>
-    public record BorrowPageListDTO
+    public record BorrowPageListDto
     {
         /// <summary>
         /// 主键ID
         /// </summary>
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         /// <summary>
         /// 借阅申请名称
         /// </summary>
-        public string BorrowName { get; set; } = string.Empty;
+        public string? BorrowName { get; set; }
 
         /// <summary>
         /// 状态名
         /// </summary>
-        public string StatusName { get; set; } = string.Empty;
+        public string? StatusName { get; set; }
         /// <summary>
         /// 状态Code
         /// </summary>

@@ -24,7 +24,7 @@ namespace WZH.Infrastructure.Service.query
         /// <param name="pageIndex"></param>
         /// <param name="pagesize"></param>
         /// <returns></returns>
-        public async Task<MessageModel<PageModel<BorrowPageListDTO>>> GetPageListQry(BorrowPageListQry qry, int pageIndex, int pagesize)
+        public async Task<MessageModel<PageModel<BorrowPageListDto>>> GetPageListQry(BorrowPageListQry qry, int pageIndex, int pagesize)
         {
             var data = _dbContext.Borrow.AsNoTracking().AsQueryable();
             if (!string.IsNullOrWhiteSpace(qry.BorrowName))
@@ -40,11 +40,11 @@ namespace WZH.Infrastructure.Service.query
                  
                  .ToListAsync();
             var count = await data.CountAsync();
-            IEnumerable<BorrowPageListDTO> getAll()
+            IEnumerable<BorrowPageListDto> getAll()
             {
                 foreach (var item in result)
                 {
-                    yield return new BorrowPageListDTO()
+                    yield return new BorrowPageListDto()
                     {
                         Id = item.Id.ToString(),
                         BorrowName = null,
@@ -54,7 +54,7 @@ namespace WZH.Infrastructure.Service.query
                     };
                 }
             }
-            return ApiResponse<PageModel<BorrowPageListDTO>>.Success("操作成功！", new PageModel<BorrowPageListDTO>
+            return ApiResponse<PageModel<BorrowPageListDto>>.Success("操作成功！", new PageModel<BorrowPageListDto>
             {
                 data = getAll(),
                 dataCount = count,

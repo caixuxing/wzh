@@ -16,6 +16,6 @@ namespace WZH.Application.Borrow
         /// <param name="pageIndex"></param>
         /// <param name="pagesize"></param>
         /// <returns></returns>
-        Task<MessageModel<PageModel<BorrowPageListDTO>>> GetPageListQry(BorrowPageListQry qry,int pageIndex,int pagesize);
+        Task<MessageModel<PageModel<BorrowPageListDto>>> GetPageListQry(BorrowPageListQry qry,int pageIndex,int pagesize);
     }
 }

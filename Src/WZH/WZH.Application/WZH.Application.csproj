@@ -11,12 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WZH.Common\WZH.Common.csproj" />
-    <ProjectReference Include="..\WZH.Domain\WZH.Domain.csproj" />
+    <Compile Remove="Borrow\autoMap\**" />
+    <EmbeddedResource Remove="Borrow\autoMap\**" />
+    <None Remove="Borrow\autoMap\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Borrow\autoMap\" />
+    <ProjectReference Include="..\WZH.Common\WZH.Common.csproj" />
+    <ProjectReference Include="..\WZH.Domain\WZH.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

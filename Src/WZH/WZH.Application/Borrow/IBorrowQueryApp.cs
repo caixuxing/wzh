@@ -13,7 +13,9 @@ namespace WZH.Application.Borrow
         /// 借阅列表
         /// </summary>
         /// <param name="qry"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pagesize"></param>
         /// <returns></returns>
-        Task<MessageModel<List<BorrowPageListDTO>>>GetPageListQry(BorrowPageListQry qry,int pageIndex);
+        Task<MessageModel<PageModel<BorrowPageListDTO>>> GetPageListQry(BorrowPageListQry qry,int pageIndex,int pagesize);
     }
 }

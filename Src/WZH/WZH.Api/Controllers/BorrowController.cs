@@ -81,11 +81,8 @@ namespace WZH.Api.Controllers
         /// <param name="qry"></param>
         /// <param name="pageindex"></param>
         /// <returns></returns>
-        [HttpGet, Route("list/{pageindex}")]
-        public async Task<IActionResult> GetPageList([FromQuery] BorrowPageListQry qry, [FromRoute] int pageindex)
-        {
-            var result = await _borrowQueryApp.GetPageListQry(qry, pageindex);
-            return Ok(result);
-        }
+        [HttpGet, Route("list/{pageindex}/{pagesize}")]
+        public async Task<IActionResult> GetPageList([FromQuery] BorrowPageListQry qry, [FromRoute] int pageindex, [FromRoute] int pagesize) => Ok(await _borrowQueryApp.GetPageListQry(qry, pageindex,pagesize));
+       
     }
 }

@@ -16,8 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Borrow\query\" />
-    <Folder Include="Borrow\dto\" />
     <Folder Include="Borrow\autoMap\" />
   </ItemGroup>
 

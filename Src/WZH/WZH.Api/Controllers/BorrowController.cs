@@ -4,6 +4,7 @@ using StackExchange.Profiling;
 using System.Threading.Tasks;
 using WZH.Application.Borrow;
 using WZH.Application.Borrow.cmd;
+using WZH.Application.Borrow.query;
 
 namespace WZH.Api.Controllers
 {
@@ -19,6 +20,7 @@ namespace WZH.Api.Controllers
         ///
         /// </summary>
         private readonly IBorrowCmdApp _borrowCmdApp;
+        private readonly IBorrowQueryApp _borrowQueryApp;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -26,10 +28,11 @@ namespace WZH.Api.Controllers
         ///
         /// </summary>
         /// <param name="borrowCmdApp"></param>
-        public BorrowController(IBorrowCmdApp borrowCmdApp, IHttpContextAccessor httpContextAccessor)
+        public BorrowController(IBorrowCmdApp borrowCmdApp, IHttpContextAccessor httpContextAccessor, IBorrowQueryApp borrowQueryApp)
         {
             _borrowCmdApp = borrowCmdApp;
             _httpContextAccessor = httpContextAccessor;
+            _borrowQueryApp = borrowQueryApp;
         }
 
         /// <summary>
@@ -70,5 +73,19 @@ namespace WZH.Api.Controllers
         /// <returns></returns>
         [HttpPatch, Route("approval/{id}")]
         public async Task<ActionResult> PatchApproval([FromForm] int status, [FromRoute] long id) => Ok(await _borrowCmdApp.Approval(status, id));
+
+
+        /// <summary>
+        /// 借阅列表
+        /// </summary>
+        /// <param name="qry"></param>
+        /// <param name="pageindex"></param>
+        /// <returns></returns>
+        [HttpGet, Route("list/{pageindex}")]
+        public async Task<IActionResult> GetPageList([FromQuery] BorrowPageListQry qry, [FromRoute] int pageindex)
+        {
+            var result = await _borrowQueryApp.GetPageListQry(qry, pageindex);
+            return Ok(result);
+        }
     }
 }

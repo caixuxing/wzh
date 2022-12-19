@@ -35,8 +35,9 @@ namespace WZH.Infrastructure.Service.query
             {
                 data = data.Where(x => x.Status == Enum.Parse<BorrowStatusType>(qry.StatusCode.ToString()));
             }
-            var result = await data.Select(x => new { x.Id, x.ApplyBorrowName, x.Status,x.BorrowDate }).OrderByDescending(x=>x.Id)
+            var result = await data.Select(x => new { x.Id, x.ApplyBorrowName, x.Status,x.BorrowDate }).OrderByDescending(x => x.Id)
                  .Skip(pageIndex).Take(pagesize)
+                 
                  .ToListAsync();
             var count = await data.CountAsync();
             IEnumerable<BorrowPageListDTO> getAll()

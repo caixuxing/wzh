@@ -21,7 +21,7 @@
         /// <summary>
         /// 返回数据
         /// </summary>
-        public List<T> data { get; set; }
+        public IEnumerable<T> data { get; set; }
 
         public PageModel() { }
 

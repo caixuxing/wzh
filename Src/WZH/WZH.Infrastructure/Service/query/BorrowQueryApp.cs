@@ -36,25 +36,26 @@ namespace WZH.Infrastructure.Service.query
                 AssertUtils.IsObjNull(Enum.GetName(typeof(BorrowStatusType), qry.StatusCode), "非法状态，请核实状态码");
                 data = data.Where(x => x.Status == Enum.Parse<BorrowStatusType>(qry.StatusCode.ToString()));
             }
-            var result = await data.Select(x => new { x.Id, x.ApplyBorrowName, x.Status })
+            var result = await data.Select(x => new { x.Id, x.ApplyBorrowName, x.Status }).OrderByDescending(x=>x.Id)
                  .Skip(pageIndex).Take(pagesize)
                  .ToListAsync();
             var count = await data.CountAsync();
-            List<BorrowPageListDTO> borrowPageListDTOs = new List<BorrowPageListDTO>();
-            result.ForEach(item =>
+            IEnumerable<BorrowPageListDTO> getAll()
             {
-                borrowPageListDTOs.Add(new BorrowPageListDTO()
+                foreach (var item in result)
                 {
-
-                    Id = item.Id.ToString(),
-                    BorrowName = item.ApplyBorrowName,
-                    StatusCode = ((int)item.Status),
-                    StatusName = item.Status.FetchDescription()
-                });
-            });
+                    yield return new BorrowPageListDTO()
+                    {
+                        Id = item.Id.ToString(),
+                        BorrowName = item.ApplyBorrowName,
+                        StatusCode = ((int)item.Status),
+                        StatusName = item.Status.FetchDescription()
+                    };
+                }
+            }
             return ApiResponse<PageModel<BorrowPageListDTO>>.Success("操作成功！", new PageModel<BorrowPageListDTO>
             {
-                data = borrowPageListDTOs,
+                data = getAll(),
                 dataCount = count,
                 page = pageIndex,
                 PageSize = pagesize

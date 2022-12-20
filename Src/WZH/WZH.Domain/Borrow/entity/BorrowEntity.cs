@@ -11,14 +11,10 @@ namespace WZH.Domain.Borrow.entity
     /// <summary>
     /// 借阅聚合
     /// </summary>
-    public sealed record BorrowEntity : AggregateRootEntity, IValidatableObject
+    public  record BorrowEntity : AggregateRootEntity
     {
         private BorrowEntity() { }
-        /// <summary>
-        /// 文档Id
-        /// </summary>
-        public long ArchiveId { get; init; }
-
+ 
         /// <summary>
         /// 申请借阅名称
         /// </summary>
@@ -48,16 +44,22 @@ namespace WZH.Domain.Borrow.entity
         /// 借阅状态
         /// </summary>
         public BorrowStatusType Status { get; private set; }
+        /// <summary>
+        /// 借阅明细
+        /// </summary>
+        public virtual ICollection<BorrowDetailsEntity> borrowDetailsEntities { get; private set; }
 
         /// <summary>
-        /// 创建申请借阅
+        /// 创建借阅申请
         /// </summary>
+        /// <param name="archiveid"></param>
+        /// <param name="applyborrowname"></param>
+        /// <param name="borrowDetailsEntities"></param>
         /// <returns></returns>
-        public static BorrowEntity Create(long archiveid, string applyborrowname)
+        public static BorrowEntity Create(string applyborrowname)
         {
             BorrowEntity entity = new()
             {
-                ArchiveId = archiveid,
                 BorrowDate = DateTime.Now,
                 BorrowDeptCode = "JY" + IdWorker.Instance.NextId(),
                 BorrowTpye = "type",
@@ -69,6 +71,23 @@ namespace WZH.Domain.Borrow.entity
             };
             return entity;
         }
+
+
+        /// <summary>
+        /// 增加借阅明细
+        /// </summary>
+        /// <returns></returns>
+        public BorrowEntity AddborrowDetails(BorrowDetailsEntity borrowDetailsEntity)
+        {
+            if (this.borrowDetailsEntities == null)
+            {
+                this.borrowDetailsEntities = new List<BorrowDetailsEntity>();
+            }
+            this.borrowDetailsEntities.Add(borrowDetailsEntity);
+            return this;
+        }
+
+
 
         /// <summary>
         /// 修改申请借阅名称
@@ -117,9 +136,5 @@ namespace WZH.Domain.Borrow.entity
             return this;
         }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

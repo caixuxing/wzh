@@ -35,7 +35,7 @@ namespace WZH.Infrastructure.DbContext
         }
 
         public DbSet<BorrowEntity> Borrow { get; private set; }//不要忘了写set，否则拿到的DbContext的Categories为null
-
+        public DbSet<BorrowDetailsEntity> BorrowDetails { get; private set; }//不要忘了写set，否则拿到的DbContext的Categories为null
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

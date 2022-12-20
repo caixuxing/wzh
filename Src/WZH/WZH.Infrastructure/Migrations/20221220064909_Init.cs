@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WZH.Infrastructure.Migrations
 {
-    public partial class _20221215Init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +12,6 @@ namespace WZH.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false, comment: "主键ID"),
-                    ArchiveId = table.Column<long>(type: "bigint", nullable: false, comment: "文档ID"),
                     ApplyBorrowName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false, comment: "借阅申请名称"),
                     BorrowUserCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BorrowDeptCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "借阅部门"),
@@ -55,15 +55,44 @@ namespace WZH.Infrastructure.Migrations
                     table.PrimaryKey("PK_Logs", x => x.Id);
                 },
                 comment: "系统日志表");
+
+            migrationBuilder.CreateTable(
+                name: "BorrowDetails",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false, comment: "主键Id"),
+                    BorrowId = table.Column<long>(type: "bigint", nullable: false, comment: "借阅主键Id"),
+                    ArchiveId = table.Column<long>(type: "bigint", nullable: false, comment: "文档主键Id"),
+                    RowVersion = table.Column<byte[]>(type: "Timestamp", rowVersion: true, nullable: false, comment: "版本号")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BorrowDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BorrowDetails_Borrow_BorrowId",
+                        column: x => x.BorrowId,
+                        principalTable: "Borrow",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                },
+                comment: "借阅明细表");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BorrowDetails_BorrowId",
+                table: "BorrowDetails",
+                column: "BorrowId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Borrow");
+                name: "BorrowDetails");
 
             migrationBuilder.DropTable(
                 name: "Logs");
+
+            migrationBuilder.DropTable(
+                name: "Borrow");
         }
     }
 }

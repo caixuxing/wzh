@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WZH.Domain.Borrow.repository
+namespace WZH.Domain.Comm
 {
     public interface IBaseRepo<T>
     {

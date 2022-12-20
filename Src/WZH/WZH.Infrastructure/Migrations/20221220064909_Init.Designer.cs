@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WZH.Infrastructure.DbContext;
 
 namespace WZH.Infrastructure.Migrations
 {
     [DbContext(typeof(CodeFirstDbContext))]
-    partial class CodeFirstDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221220064909_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,7 +179,7 @@ namespace WZH.Infrastructure.Migrations
                     b.HasOne("WZH.Domain.Borrow.entity.BorrowEntity", null)
                         .WithMany("borrowDetailsEntities")
                         .HasForeignKey("BorrowId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

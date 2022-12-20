@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using WZH.Domain.Borrow.entity;
+using WZH.Domain.Comm;
 
 namespace WZH.Domain.Borrow.repository
 {

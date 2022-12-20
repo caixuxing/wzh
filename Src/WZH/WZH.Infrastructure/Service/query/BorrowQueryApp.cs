@@ -51,7 +51,7 @@ namespace WZH.Infrastructure.Service.query
 
 
 
-            // EF Core查询
+            // EF Core 单表查询
             var data = _dbContext.ToMaster().Set<BorrowEntity>().AsNoTracking().AsQueryable();
             if (!string.IsNullOrWhiteSpace(qry.BorrowName))
             {
@@ -80,6 +80,31 @@ namespace WZH.Infrastructure.Service.query
                     };
                 }
             }
+
+
+
+
+
+            
+
+
+
+        //linq查询
+            var query = from a in _dbContext.ToMaster().Set<BorrowEntity>()
+                    join b in _dbContext.ToMaster().Set<BorrowDetailsEntity>()
+                    on a.Id equals b.BorrowId
+                    select new { a.Id,a.ApplyBorrowName, b.ArchiveId };
+            var linqData = await query.ToListAsync();
+
+
+
+
+            //EF Core多表  Include、Join 必须在Fluent API  表配置中使用主外键关系
+            var efCoreMultiTable = await _dbContext.ToMaster().Set<BorrowEntity>().Include(x=>x.borrowDetailsEntities).AsNoTracking().ToListAsync();
+           
+
+
+
             return ApiResponse<PageModel<BorrowPageListDto>>.Success("操作成功！", new PageModel<BorrowPageListDto>
             {
                 data = getAll(),

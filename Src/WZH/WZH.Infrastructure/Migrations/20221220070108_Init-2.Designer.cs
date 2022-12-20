@@ -10,8 +10,8 @@ using WZH.Infrastructure.DbContext;
 namespace WZH.Infrastructure.Migrations
 {
     [DbContext(typeof(CodeFirstDbContext))]
-    [Migration("20221218105331_Init")]
-    partial class Init
+    [Migration("20221220070108_Init-2")]
+    partial class Init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,37 @@ namespace WZH.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WZH.Domain.Borrow.entity.BorrowDetailsEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint")
+                        .HasComment("主键Id");
+
+                    b.Property<long>("ArchiveId")
+                        .HasColumnType("bigint")
+                        .HasComment("文档主键Id");
+
+                    b.Property<long>("BorrowId")
+                        .HasColumnType("bigint")
+                        .HasComment("借阅主键Id");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("Timestamp")
+                        .HasComment("版本号");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BorrowId");
+
+                    b.ToTable("BorrowDetails");
+
+                    b
+                        .HasComment("借阅明细表");
+                });
 
             modelBuilder.Entity("WZH.Domain.Borrow.entity.BorrowEntity", b =>
                 {
@@ -32,10 +63,6 @@ namespace WZH.Infrastructure.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)")
                         .HasComment("借阅申请名称");
-
-                    b.Property<long>("ArchiveId")
-                        .HasColumnType("bigint")
-                        .HasComment("文档ID");
 
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("datetime")
@@ -98,7 +125,7 @@ namespace WZH.Infrastructure.Migrations
                         .HasComment("借阅表");
                 });
 
-            modelBuilder.Entity("WZH.Domain.Logs.entity.LogEntity", b =>
+            modelBuilder.Entity("WZH.Domain.SystemManage.entity.LogEntity", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint")
@@ -145,6 +172,20 @@ namespace WZH.Infrastructure.Migrations
 
                     b
                         .HasComment("系统日志表");
+                });
+
+            modelBuilder.Entity("WZH.Domain.Borrow.entity.BorrowDetailsEntity", b =>
+                {
+                    b.HasOne("WZH.Domain.Borrow.entity.BorrowEntity", null)
+                        .WithMany("borrowDetailsEntities")
+                        .HasForeignKey("BorrowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WZH.Domain.Borrow.entity.BorrowEntity", b =>
+                {
+                    b.Navigation("borrowDetailsEntities");
                 });
 #pragma warning restore 612, 618
         }

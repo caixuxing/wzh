@@ -5,17 +5,16 @@
     /// </summary>
     public class ApplyBorrowCmd
     {
-        /// <summary>
-        /// 文档ID
-        /// </summary>
-        [Required]
-        public long ArchiveId { get; set; }
+     
 
         /// <summary>
         /// 申请名称
         /// </summary>
         [Required]
         public string? ApplyName { get; set; }
+
+
+        public long[] ArchiveIds { get; set; }
     }
 
     /// <summary>

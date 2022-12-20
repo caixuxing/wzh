@@ -24,16 +24,22 @@ namespace WZH.Application.Borrow.Impl
 
         public virtual async Task<MessageModel<BorrowEntity>> ApplyBorrow(ApplyBorrowCmd cmd)
         {
-            IEnumerable<BorrowEntity> get()
-            {
-                for (int i = 0; i < 100000; i++)
-                {
-                    yield return BorrowEntity.Create(cmd.ArchiveId, cmd.ApplyName!);
-                }
-            }
+            //模拟查询10万行记录
+            //IEnumerable<BorrowEntity> get()
+            //{
+            //    for (int i = 0; i < 100000; i++)
+            //    {
+            //        yield return BorrowEntity.Create(cmd.ArchiveId, cmd.ApplyName,null);
+            //    }
+            //}
 
-            await _borrowRepo.Add(get());
-            return ApiResponse<BorrowEntity>.Success("操作成功！", get().FirstOrDefault()!);
+            var entity = BorrowEntity.Create(cmd.ApplyName);
+            foreach (var item in cmd.ArchiveIds)
+            {
+                entity.AddborrowDetails(BorrowDetailsEntity.Create(entity.Id, item));
+            }
+            await _borrowRepo.Add(entity);
+            return ApiResponse<BorrowEntity>.Success("操作成功！", entity);
         }
 
         /// <summary>

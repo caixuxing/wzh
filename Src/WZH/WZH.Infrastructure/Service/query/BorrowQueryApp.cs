@@ -92,8 +92,9 @@ namespace WZH.Infrastructure.Service.query
         //linq查询
             var query = from a in _dbContext.ToMaster().Set<BorrowEntity>()
                     join b in _dbContext.ToMaster().Set<BorrowDetailsEntity>()
-                    on a.Id equals b.BorrowId
-                    select new { a.Id,a.ApplyBorrowName, b.ArchiveId };
+                     on a.Id equals b.BorrowId into BorrowDetail
+                        from d in BorrowDetail.DefaultIfEmpty()
+                    select new  {  a.Id,a.ApplyBorrowName, d.ArchiveId };
             var linqData = await query.ToListAsync();
 
 

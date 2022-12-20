@@ -1,4 +1,5 @@
 ﻿using WZH.Application.Borrow;
+using WZH.Common.MemoryCache;
 using WZH.Infrastructure.Service.query;
 
 namespace WZH.Infrastructure
@@ -16,6 +17,8 @@ namespace WZH.Infrastructure
         {
             services.AddScoped<IBorrowRepo, BorrowRepo>();
             services.AddScoped<IBorrowQueryApp, BorrowQueryApp>();
+            services.AddScoped<IMemoryCacheHelper, MemoryCacheHelper>();
+            services.AddMemoryCache();
         }
     }
 }

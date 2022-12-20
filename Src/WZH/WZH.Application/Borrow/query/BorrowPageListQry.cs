@@ -7,7 +7,7 @@ namespace WZH.Application.Borrow.query
     /// <summary>
     /// 借阅分页列表查询参数
     /// </summary>
-   public class BorrowPageListQry
+   public record BorrowPageListQry
     {
         /// <summary>
         /// 借阅申请名称

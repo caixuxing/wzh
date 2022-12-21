@@ -22,5 +22,17 @@
             _dbContext.AddRange(entity.borrowDetailsEntities);
           return await _dbContext.SaveChangesAsync()>0;
         }
+
+        public async override Task<bool> Add(IEnumerable<BorrowEntity> entity)
+        {
+            await _dbContext.BulkInsertAsync(entity);
+            List<BorrowDetailsEntity> borrowDetailsEntities = new List<BorrowDetailsEntity>();
+            foreach (var item in entity)
+            {
+                borrowDetailsEntities.AddRange(item.borrowDetailsEntities);
+            }
+            await _dbContext.BulkInsertAsync(borrowDetailsEntities);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
     }
 }
